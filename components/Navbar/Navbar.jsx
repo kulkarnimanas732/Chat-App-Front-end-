@@ -15,8 +15,8 @@ export default function Navbar({ onToggleSidebar }) {
                     </button>
                     <h1 className="text-xl font-semibold text-gray-800">Chat App</h1>
                 </div>
-                <div className="w-8 h-8 bg-purple-500 text-white flex items-center justify-center rounded-full text-sm">
-                    CL
+                <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full text-sm">
+                    P
                 </div>
             </div>
         </div>
