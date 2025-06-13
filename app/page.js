@@ -1,103 +1,89 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import Navbar from '../components/Navbar/Navbar';
+import Sidebar from '../components/Sidebar/Sidebar';
+import ChatWindow from '../components/ChatWindow/ChatWindow';
+import ChatInput from '../components/ChatInput/ChatInput';
+
+const initialMessages = {
+  Alice: [
+    { sender: 'Alice', text: 'Hey! How are you doing?', status: 'received', timestamp: '10:00 AM' },
+    { sender: 'me', text: 'Hi Alice! I\'m doing well, thanks for asking. How about you?', status: 'sent', timestamp: '10:01 AM' },
+    { sender: 'Alice', text: 'I\'m great! Just wanted to check if you received the project files I sent earlier.', status: 'received', timestamp: '10:02 AM' },
+    { sender: 'me', text: 'Yes, I got them. Thanks! I\'ll review them and get back to you by tomorrow.', status: 'sent', timestamp: '10:03 AM' },
+  ],
+  Bob: [
+    { sender: 'Bob', text: 'Are we still on for the meeting tomorrow?', status: 'received', timestamp: 'Yesterday' },
+    { sender: 'me', text: 'Yes, absolutely! See you at 2 PM.', status: 'sent', timestamp: 'Yesterday' },
+  ],
+  Charlie: [
+    { sender: 'Charlie', text: 'The design looks amazing!', status: 'received', timestamp: 'Yesterday' },
+  ],
+  David: [
+    { sender: 'David', text: 'Thanks for the report, very detailed.', status: 'received', timestamp: 'Tuesday' },
+  ],
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [selectedContact, setSelectedContact] = useState('Alice');
+  const [chatHistories, setChatHistories] = useState(initialMessages);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  
+  const handleSend = (text) => {
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const newMessage = { sender: 'me', text, status: 'sent', timestamp: now };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    const updatedMessages = [...(chatHistories[selectedContact] || []), newMessage];
+    setChatHistories(prev => ({ ...prev, [selectedContact]: updatedMessages }));
+    
+    setIsTyping(true);
+
+    // Simulate response
+    setTimeout(() => {
+      const botMessage = {
+        sender: selectedContact,
+        text: 'Thanks for your message! I\'ll get back to you soon.',
+        status: 'received',
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setChatHistories(prev => ({
+        ...prev,
+        [selectedContact]: [...(prev[selectedContact] || []), botMessage],
+      }));
+      setIsTyping(false);
+    }, 2000);
+  };
+
+  const handleContactSelect = (contact) => {
+    setSelectedContact(contact);
+    setSidebarVisible(false); // Close sidebar on mobile after selection
+  };
+
+  return (
+    <div className="relative bg-gray-50 h-screen">
+      <Navbar onToggleSidebar={() => setSidebarVisible(prev => !prev)} />
+      {/* <Sidebar
+        onSelect={handleContactSelect}
+        isVisible={isSidebarVisible}
+        chatHistories={chatHistories}
+        selectedContact={selectedContact}
+      /> */}
+      <Sidebar
+  onSelect={setSelectedContact}
+  isVisible={isSidebarVisible}
+  chatHistories={chatHistories}
+  selectedContact={selectedContact}
+  onClose={() => setSidebarVisible(false)}
+ // ✅ this is missing
+/>
+
+      <ChatWindow
+        contact={selectedContact}
+        messages={chatHistories[selectedContact] || []}
+        isTyping={isTyping}
+      />
+      <ChatInput onSend={handleSend} />
     </div>
   );
 }

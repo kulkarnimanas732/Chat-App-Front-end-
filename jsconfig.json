@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",  // This tells it to use the project root as the base path
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"]  // This makes the `@/` alias resolve to the root of the project
     }
   }
 }
