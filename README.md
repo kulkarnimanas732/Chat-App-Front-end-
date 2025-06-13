@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💬 Responsive Chat Application (Frontend Only)
 
-## Getting Started
+This is a fully responsive frontend-only chat application built with **Next.js**. The UI closely replicates the provided reference design and is optimized for both desktop and mobile views.
 
-First, run the development server:
+## 🚀 Live Demo
+
+🌐 Hosted on Vercel: https://chat-app-front-end-xi.vercel.app/
+🔗 GitHub Repo: https://github.com/kulkarnimanas732/Chat-App-Front-end-/
+
+---
+
+## 📦 Tech Stack
+
+- **Next.js** (Bonus ✅)
+- **React.js**
+- **CSS Modules / Tailwind CSS** (as preferred)
+- **JavaScript (ES6+)**
+
+---
+
+## 🧩 Features
+
+- ✅ Responsive layout for mobile and desktop
+- ✅ Fixed top navbar
+- ✅ Sidebar with contact list
+- ✅ Clicking a contact opens respective conversation
+- ✅ Dummy chat functionality with predefined/random bot replies
+- ✅ Typing animation (Bonus ✅)
+- ✅ Message status indicators (Sent / Received) (Bonus ✅)
+- ✅ Chat message transition animations (Bonus ✅)
+- ✅ Smooth sidebar collapse animation (Bonus ✅)
+
+---
+
+## 📁 Project Structure
+
+
+chat-app/
+ ├── components/
+ │ ├── Navbar.jsx
+ │ ├── Sidebar.jsx
+ │ ├── ChatWindow.jsx
+ │ ├── ChatMessage.jsx
+ │ └── TypingIndicator.jsx
+ ├── pages/
+ │ ├── index.js
+ ├── public/
+ │ └── assets/
+ ├── styles/
+ │ └── globals.css
+ ├── utils/
+ │ └── dummyData.js
+ ├── README.md
+ └── ...
+
+---
+
+## 🧠 Functionality Details
+
+- **Sidebar**: Lists all contacts. Click to load their chat history.
+- **Chat Wall**: Shows message bubbles with timestamps and status.
+- **Bot Replies**: Triggered automatically after a short delay using `setTimeout`.
+- **Typing Indicator**: Simulates the bot typing before a reply appears.
+- **Animations**: Messages and sidebar use `framer-motion` or CSS transitions for smooth effects.
+
+---
+
+## 📲 Mobile Responsiveness
+
+- Hamburger menu toggles sidebar.
+- Sticky navbar remains at the top.
+- Touch-friendly UI components.
+
+---
+
+## 🛠️ Installation and Setup
 
 ```bash
+# Clone the repo
+git clone https://github.com/kulkarnimanas732/Chat-App-Front-end-/
+cd Chat-App-Front-end-
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit http://localhost:3000 in your browser.
