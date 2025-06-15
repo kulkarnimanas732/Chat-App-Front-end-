@@ -29,14 +29,14 @@ export default function Home() {
   const [chatHistories, setChatHistories] = useState(initialMessages);
   const [isTyping, setIsTyping] = useState(false);
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  
+
   const handleSend = (text) => {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const newMessage = { sender: 'me', text, status: 'sent', timestamp: now };
 
     const updatedMessages = [...(chatHistories[selectedContact] || []), newMessage];
     setChatHistories(prev => ({ ...prev, [selectedContact]: updatedMessages }));
-    
+
     setIsTyping(true);
 
     // Simulate response
@@ -63,20 +63,15 @@ export default function Home() {
   return (
     <div className="relative bg-gray-50 h-screen">
       <Navbar onToggleSidebar={() => setSidebarVisible(prev => !prev)} />
-      {/* <Sidebar
-        onSelect={handleContactSelect}
+
+      <Sidebar
+        onSelect={setSelectedContact}
         isVisible={isSidebarVisible}
         chatHistories={chatHistories}
         selectedContact={selectedContact}
-      /> */}
-      <Sidebar
-  onSelect={setSelectedContact}
-  isVisible={isSidebarVisible}
-  chatHistories={chatHistories}
-  selectedContact={selectedContact}
-  onClose={() => setSidebarVisible(false)}
- // ✅ this is missing
-/>
+        onClose={() => setSidebarVisible(false)}
+
+      />
 
       <ChatWindow
         contact={selectedContact}
